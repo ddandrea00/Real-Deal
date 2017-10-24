@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Deals from './Components/Deals';
+import AddDeal from './Components/AddDeal';
 import './App.css';
 
 class App extends Component {
@@ -46,9 +47,17 @@ class App extends Component {
      
    ]});
  }
+
+//  Push to api to be stored in db
+ handleAddDeal(deal){
+   let deals = this.state.deals;
+   deals.push(deal);
+   this.setState({deals:deals})
+ }
   render() {
     return (
       <div className="App">
+        <AddDeal addDeal={this.handleAddDeal.bind(this)} />
         <Deals deals={this.state.deals} />
       </div>
     );
