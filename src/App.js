@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import uuid from 'uuid';
 import Deals from './Components/Deals';
 import AddDeal from './Components/AddDeal';
 import './App.css';
@@ -15,6 +16,7 @@ class App extends Component {
  componentWillMount(){
    this.setState({deals: [
      {
+       id: uuid.v4(),
        address: "317 N Orange Street",
        address2: "",
        city: "Philadelphia",
@@ -25,6 +27,7 @@ class App extends Component {
        closedate: "May 3rd, 2017"
      },
      {
+       id: uuid.v4(),
        address: "1308 N Carlisle",
        address2: "",
        city: "Philadelphia",
@@ -35,6 +38,7 @@ class App extends Component {
        closedate: "June 14th, 2017"
      },
      {
+       id: uuid.v4(),
        address: "210 Front Street",
        address2: "",
        city: "Philadelphia",
@@ -54,11 +58,17 @@ class App extends Component {
    deals.push(deal);
    this.setState({deals:deals})
  }
+ handleDeleteDeal(id) {
+   let deals = this.state.deals;
+   let index = deals.findIndex(x => x.id === id);
+   deals.splice(index, 1);
+   this.setState({ deals: deals })
+ }
   render() {
     return (
       <div className="App">
         <AddDeal addDeal={this.handleAddDeal.bind(this)} />
-        <Deals deals={this.state.deals} />
+        <Deals deals={this.state.deals} onDelete={this.handleDeleteDeal.bind(this)}/>
       </div>
     );
   }

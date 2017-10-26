@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import uuid from 'uuid';
 
 
 class AddDeal extends Component {
@@ -14,6 +15,7 @@ class AddDeal extends Component {
             alert('Must have Address');
         } else {
             this.setState({newDeal:{
+                id: uuid.v4(),
                 address: this.refs.address.value,
                 address2: this.refs.address2.value,
                 city: this.refs.city.value,

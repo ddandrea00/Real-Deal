@@ -3,12 +3,16 @@ import Deal from './Deal';
 
 class Deals extends Component {
   
+    deleteDeal(id) {
+        this.props.onDelete(id)
+    }
+
     render() {
         let deal;
         if (this.props.deals){
             deal = this.props.deals.map(deal => {
                 return (
-                    <Deal key={deal.address} deal={deal} />
+                    <Deal onDelete={this.deleteDeal.bind(this)} key={deal.address} deal={deal} />
                 )
             });
         }
