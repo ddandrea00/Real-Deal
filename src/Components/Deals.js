@@ -1,25 +1,38 @@
 import React, { Component } from 'react';
+import { Accordion,AccordionTab } from 'primereact/components/accordion/Accordion';
+import AddDeal from './AddDeal';
 import Deal from './Deal';
+import Progress from './Progress';
 
 class Deals extends Component {
-  
-    deleteDeal(id) {
-        this.props.onDelete(id)
+    constructor(props){
+        super(props)
     }
+  
 
     render() {
+        const style = {
+            h1:{
+                textAlign: "center"
+            }
+        }
+
         let deal;
         if (this.props.deals){
-            deal = this.props.deals.map(deal => {
-                return (
-                    <Deal onDelete={this.deleteDeal.bind(this)} key={deal.address} deal={deal} />
-                )
-            });
+            deal = this.props.deals.map((deal, key) => (
+                <AccordionTab key={key} header={deal.address}> 
+                        <Deal onDelete={this.props.onDelete}  deal={deal} /> 
+                    </AccordionTab> 
+                )       
+            );
         }
         return (
             <div className="Deals">
-                Current Deals
-                {deal}
+                <h1 style={style.h1}> Current Deals </h1>
+                <AddDeal />
+                    <Accordion>
+                        {deal}
+                    </Accordion>
             </div>
         );
     }

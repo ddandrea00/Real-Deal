@@ -1,8 +1,33 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import uuid from 'uuid';
+import { Accordion, AccordionTab } from 'primereact/components/accordion/Accordion';
+import NavigationBar from './Components/NavigationBar';
+import NavItem from './Components/NavItem';
+import { NavBar } from 'react-bootstrap';
+import { Nav } from 'react-bootstrap'
 import Deals from './Components/Deals';
+import Home from './Components/Home';
 import AddDeal from './Components/AddDeal';
+import Routes from './Routes';
 import './App.css';
+
+
+
+var navLinks = [
+  {
+    title: "Home",
+    href: "/"
+  },
+  {
+    title: "Deals",
+    href: "/deals"
+  },
+  {
+    title: "Profile",
+    href: "/profile"
+  },
+]
 
 class App extends Component {
   constructor(){
@@ -10,6 +35,8 @@ class App extends Component {
     this.state = {
       deals: []
     }
+    this.handleAddDeal = this.handleAddDeal.bind(this);
+    this.handleDeleteDeal = this.handleDeleteDeal.bind(this);
   }
 
   //this is where you want to make your AJAX call for data! :) checkout documentation for lifecycle methods to understand how and when they render.
@@ -66,11 +93,18 @@ class App extends Component {
  }
   render() {
     return (
-      <div className="App">
-        <AddDeal addDeal={this.handleAddDeal.bind(this)} />
-        <Deals deals={this.state.deals} onDelete={this.handleDeleteDeal.bind(this)}/>
+      
+      <div>  
+      <NavigationBar navData={navLinks} />
+      <main className="container">
+            <Routes
+            addDeal={this.handleAddDeal}
+            deals={this.state.deals}
+            onDelete={this.handleDeleteDeal}
+            />
+        </main>
       </div>
-    );
+    )
   }
 }
 

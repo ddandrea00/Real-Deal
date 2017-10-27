@@ -1,13 +1,27 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { Dialog } from 'primereact/components/dialog/Dialog';
+import { Button } from 'primereact/components/button/Button'; 
 import uuid from 'uuid';
 
 
 class AddDeal extends Component {
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
-            newDeal:{}
+            newDeal:{},
+            visible: false
         }
+        this.onClick= this.onClick.bind(this);
+        this.onHide = this.onHide.bind(this);
+    }
+
+    onClick(event) {
+        this.setState({visible: true});
+    }
+
+    onHide(event) {
+        this.setState({ visible: false });
     }
 
     handleSubmit(e){
@@ -32,53 +46,60 @@ class AddDeal extends Component {
         e.preventDefault();
     }
 
-    render() {
+    render() {   
         return (
             <div>
-                <h3> New Deal </h3>
-                 <form onSubmit={this.handleSubmit.bind(this)}>
-                  <div>
-                    <label>Address</label>
-                    <br />  
-                    <input type="text" ref="address" />
-                  </div>
-                  <div>
-                      <label>Address 2</label>
-                      <br />
-                      <input type="text" ref="address2" />
-                  </div>
-                  <div>
-                      <label>City</label>
-                      <br />
-                      <input type="text" ref="city" />
-                  </div>
-                  <div>
-                      <label>State</label>
-                      <br />
-                      <input type="text" ref="state" />
-                  </div>
-                  <div>
-                      <label>Zip</label>
-                      <br />
-                      <input type="text" ref="zip" />
-                  </div>
-                  <div>
-                      <label>Price</label>
-                      <br />
-                      <input type="text" ref="price" />
-                  </div>
-                  <div>
-                      <label>Agreement of Sale Date</label>
-                      <br />
-                      <input type="text" ref="agreedate" />
-                  </div>
-                  <div>
-                      <label>Closing Date</label>
-                      <br />
-                      <input type="text" ref="closedate" />
-                  </div>
-                  <input type="submit" value="Submit" />
-                 </form>
+                <div className="content-section implementation">
+                    <Dialog header="Create New Deal" visible={this.state.visible} width="350px" modal={true} onHide={this.onHide}>
+                        <h3> What's the Deal? </h3>
+                        <form onSubmit={this.handleSubmit.bind(this)}>
+                            <div>
+                                <label>Address</label>
+                                <br />
+                                <input type="text" ref="address" />
+                            </div>
+                            <div>
+                                <label>Address 2</label>
+                                <br />
+                                <input type="text" ref="address2" />
+                            </div>
+                            <div>
+                                <label>City</label>
+                                <br />
+                                <input type="text" ref="city" />
+                            </div>
+                            <div>
+                                <label>State</label>
+                                <br />
+                                <input type="text" ref="state" />
+                            </div>
+                            <div>
+                                <label>Zip</label>
+                                <br />
+                                <input type="text" ref="zip" />
+                            </div>
+                            <div>
+                                <label>Price</label>
+                                <br />
+                                <input type="text" ref="price" />
+                            </div>
+                            <div>
+                                <label>Agreement of Sale Date</label>
+                                <br />
+                                <input type="text" ref="agreedate" />
+                            </div>
+                            <div>
+                                <label>Closing Date</label>
+                                <br />
+                                <input type="text" ref="closedate" />
+                            </div>
+                            <hr></hr>
+                            <Button label="Submit" type="submit" value="Submit" icon="fa-check" onClick={this.onHide} />
+                            <Button label="Cancel" icon="fa-close" onClick={this.onHide} />
+                        </form>
+                    </Dialog>
+                    <Button label="Add Deal" icon="fa fa-plus-square-o" onClick={this.onClick} />
+                </div>
             </div>
         );
     }
