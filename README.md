@@ -6,6 +6,10 @@ Did you get this document? Is the deposit check in yet? How far are we along wit
 * Built in React.js
 * Using components from PrimeReact
 
+### To View App
+1. Download Repository
+2. cd Real-Deal
+3. npm run start
 
 ### Key Features 
 
